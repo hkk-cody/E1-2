@@ -64,7 +64,38 @@ class QuizGame:
         else:
             print(f"당신의 점수: {score_percentage:.2f}%. 최고 점수는 {self.best_score:.2f}%입니다.")
 
+    def add_quiz(self):
+        print("새 퀴즈를 추가합니다.\n")
+        question = input("문제를 입력하세요:").strip()
+        if not question:
+            print("문제는 빈 칸일 수 없습니다. 퀴즈 추가를 취소합니다.")
+            return
+        choices = []
+        for i in range(4):
+            choice = input(f"선택지 {i+1}을 입력하세요:").strip()
+            if not choice:
+                print("선택지는 빈 칸일 수 없습니다. 퀴즈 추가를 취소합니다.")
+                return
+            choices.append(choice)
+        hint = input("힌트를 입력하세요 (선택 사항, 빈 칸 가능):").strip()
 
+        while True:
+            try:
+                ans = input("정답을 입력하세요 (1-4): ").strip()
+                if not ans:
+                    print("빈 입력입니다. 다시 입력해주세요.")
+                    continue
+                answer = int(ans)
+                if 1 > answer or answer > 4:
+                    print("1에서 4 사이의 숫자를 입력해주세요.")
+                    continue
+                break
+            except ValueError:
+                print("유효한 숫자를 입력해주세요.")
+        new_quiz = Quiz(question, choices, answer, hint=hint)
+        self.quizzes.append(new_quiz)
+        print("퀴즈가 성공적으로 추가되었습니다.")
+        self.save_state()
 
     def display_quizzes(self):
         """등록된 퀴즈 목록을 출력하는 메서드"""
