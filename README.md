@@ -60,6 +60,12 @@ python main.py [state.json]
 ### git log --oneline --graph
 ![git](asset/git.png)
 
+### git clone
+![git clone](asset/git_clone.png)
+
+### git pull
+![git pull](asset/git_pull.png)
+
 
 ## 기능 목록
 
