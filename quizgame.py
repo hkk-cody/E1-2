@@ -17,6 +17,54 @@ class QuizGame:
         """게임 상태를 파일에 저장하는 메서드"""
         save_state(self.state_file, self.quizzes, self.best_score)
 
+    def play_quiz(self):
+        """
+				퀴즈를 플레이하는 메서드
+				- 각 퀴즈를 순서대로 보여주고 사용자 입력을 받음
+				- 힌트 요청 시 힌트를 보여주고 다시 입력 받음
+				- 정답 여부에 따라 점수를 계산하고 최종 점수와 최고 점수를 비교
+				"""
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다. 먼저 퀴즈를 추가해주세요.")
+            return
+        print(f"퀴즈를 시작합니다! 총 {len(self.quizzes)}문제가 있습니다.")
+        print("=" * 50)
+        score = 0
+        for idx, quiz in enumerate(self.quizzes, start=1):
+            print(f"[문제 {idx}]")
+            quiz.display()
+            while True:
+                try:
+                    user_input = input("정답을 입력하세요 (1-4, 힌트: 0): ").strip()
+                    if not user_input:
+                        print("빈 입력입니다. 다시 입력해주세요.")
+                        continue
+                    user_answer = int(user_input)
+                    if user_answer == 0:
+                        if quiz.hint:
+                            print(f"힌트: {quiz.hint}")
+                        else:
+                            print("힌트가 없습니다.")
+                        continue
+                    if 1 > user_answer or user_answer > 4:
+                        print("1에서 4 사이의 숫자를 입력해주세요.")
+                        continue
+                    break
+                except ValueError:
+                    print("유효한 숫자를 입력해주세요.")
+            if quiz.is_correct(user_answer):
+                print("정답입니다!")
+                score += 1
+            else:
+                print(f"틀렸습니다! 정답은 {quiz.answer}번입니다.")
+        score_percentage = (score / len(self.quizzes)) * 100
+        if score_percentage > self.best_score:
+            self.best_score = score_percentage
+            print(f"축하합니다! 새로운 최고 점수입니다: {self.best_score:.2f}%")
+        else:
+            print(f"당신의 점수: {score_percentage:.2f}%. 최고 점수는 {self.best_score:.2f}%입니다.")
+
+
 
     def display_quizzes(self):
         """등록된 퀴즈 목록을 출력하는 메서드"""
