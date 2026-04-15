@@ -59,11 +59,27 @@ def load_state(state_file):
         print(f"퀴즈 데이터를 불러오는 중 오류가 발생했습니다: {e}")
         return default_quizzes(), 0
 
-
-
-
+def save_state(state_file, quizzes, best_score):
+    data = {
+        "quizzes": [
+            {
+                "question": quiz.question,
+                "choices": quiz.choices,
+                "answer": quiz.answer,
+                "hint": quiz.hint
+            }
+            for quiz in quizzes
+        ],
+        "best_score": best_score
+    }
+    try:
+        with open(state_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"퀴즈 데이터를 저장하는 중 오류가 발생했습니다: {e}")
 
 if __name__ == "__main__":
     print("storage.py는 퀴즈 데이터를 저장하고 불러오는 기능을 담당하는 모듈입니다.")
     quizzes, best_score = load_state("state.json")
     print(f"퀴즈 {len(quizzes)}개와 최고 점수 {best_score}가 로드되었습니다.")
+    save_state("state1.json", quizzes, best_score)
