@@ -63,6 +63,7 @@ class QuizGame:
             print(f"축하합니다! 새로운 최고 점수입니다: {self.best_score:.2f}%")
         else:
             print(f"당신의 점수: {score_percentage:.2f}%. 최고 점수는 {self.best_score:.2f}%입니다.")
+        self.save_state()
 
     def add_quiz(self):
         print("새 퀴즈를 추가합니다.\n")
