@@ -1,3 +1,6 @@
+from quiz import Quiz
+from storage import load_state, save_state
+
 class QuizGame:
     def __init__(self, state_file="state.json"):
         """게임 상태를 관리하는 클래스"""
@@ -5,6 +8,14 @@ class QuizGame:
         self.best_score = 0
         self.state_file = state_file
         self.load_state()
+
+    def load_state(self):
+        """게임 상태를 파일에서 불러오는 메서드"""
+        self.quizzes, self.best_score = load_state(self.state_file)
+
+    def save_state(self):
+        """게임 상태를 파일에 저장하는 메서드"""
+        save_state(self.state_file, self.quizzes, self.best_score)
 
 
     def display_quizzes(self):
