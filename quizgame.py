@@ -7,7 +7,21 @@ class QuizGame:
         self.load_state()
 
 
+    def display_quizzes(self):
+        """등록된 퀴즈 목록을 출력하는 메서드"""
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+        print(f"등록된 퀴즈 수 : {len(self.quizzes)}")
+        print("=" * 50)
+        for idx, quiz in enumerate(self.quizzes, start=1):
+            print(f"{idx}. {quiz.question}")
+        print("=" * 50)
 
+    def display_best_score(self):
+        """최고 점수를 출력하는 메서드"""
+        # TODO: 이후에 개선 필요
+        print(f"최고 점수: {self.best_score}")
 
     def display_menu(self):
         """메인 메뉴를 출력하는 메서드"""
