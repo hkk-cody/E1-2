@@ -110,8 +110,7 @@ class QuizGame:
 
     def display_best_score(self):
         """최고 점수를 출력하는 메서드"""
-        # TODO: 이후에 개선 필요
-        print(f"최고 점수: {self.best_score}")
+        print(f"최고 점수: {self.best_score:.2f}%")
 
     def display_menu(self):
         """메인 메뉴를 출력하는 메서드"""
